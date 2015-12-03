@@ -6,6 +6,21 @@ if (Meteor.isClient) {
         return Resolutions.find();
     }
   });
+
+  Template.body.events({
+    "submit .new-resolution": function (event) {
+      var title = event.target.title.value;
+
+      Resolutions.insert({
+        title: title,
+        createdAt: new Date()
+      });
+
+      //clear the form after input
+      event.target.title.value = "";
+      return false;
+    }
+  });
 }
 
 if (Meteor.isServer) {
