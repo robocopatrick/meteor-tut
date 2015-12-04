@@ -18,14 +18,11 @@ if (Meteor.isClient) {
     "submit .new-resolution": function (event) {
       var title = event.target.title.value;
 
-      Resolutions.insert({
-        title: title,
-        createdAt: new Date()
-      });
+      Meteor.call("addResolution", title);
 
       //clear the form after input
       event.target.title.value = "";
-      return false;
+      return false; // prevents default refresh after input
     },
     "change .hide-finished": function (event) {
       Session.set("hideFinished", event.target.checked);
@@ -41,6 +38,7 @@ if (Meteor.isClient) {
     }
   });
 
+  // Configures the sign in input fiels to only ask for a username and not for an email
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
   });
@@ -51,3 +49,12 @@ if (Meteor.isServer) {
     // code to run on server at startup
   });
 }
+
+Meteor.methods({
+  addResolution: function(title) {
+    Resolutions.insert({
+      title: title,
+      createdAt: new Date()
+    });
+  }
+});
