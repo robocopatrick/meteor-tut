@@ -1,11 +1,16 @@
 <head>
-  <title>meteor-tut</title>
+  <title>Meteor Tutorial</title>
 </head>
 
 <body>
   <div class="container">
     <header>
       <h1>Monthly Resolutions</h1>
+      <label class="hide-finished">
+        <input type="checkbox" checked="{{hideFinished}}">
+        Hide finished resolutions
+      </label>
+
       <form class="new-resolution">
         <input type="text" name="title" placeholder="A new resolution">
         <input type="submit" value="Submit">
